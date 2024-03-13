@@ -21,7 +21,9 @@ Route::group(['namespace' => 'api', 'middleware' => ['api_lang']], function () {
         Route::post('login', 'AuthController@login');
 
 
-
+        Route::post('check-phone', 'PhoneVerificationController@check_phone');
+        Route::post('resend-otp-check-phone', 'PhoneVerificationController@resend_otp_check_phone');
+        Route::post('verify-phone', 'PhoneVerificationController@verify_phone');
         Route::post('check-email', 'EmailVerificationController@check_email');
         Route::post('resend-otp-check-email', 'EmailVerificationController@resend_otp_check_email');
         Route::post('verify-email', 'EmailVerificationController@verify_email');

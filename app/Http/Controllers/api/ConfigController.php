@@ -69,7 +69,7 @@ class ConfigController extends Controller
           
             'email_verification' => (boolean)Helpers::get_business_settings('email_verification'),
             'phone_verification' => (boolean)Helpers::get_business_settings('phone_verification'),
-          
+            'country_code' => Helpers::get_business_settings('country_code'),
             'social_login' => $social_login,
             'currency_model' => Helpers::get_business_settings('currency_model'),
             'forgot_password_verification' => Helpers::get_business_settings('forgot_password_verification'),

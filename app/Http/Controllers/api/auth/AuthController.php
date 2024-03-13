@@ -107,7 +107,7 @@ class AuthController extends Controller
                 $time = $temp_block_time - Carbon::parse($user->temp_block_time)->diffInSeconds();
 
                 $errors = [];
-                array_push($errors, ['code' => 'auth-001', 'message' => translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
+                array_push($errors, ['code' => 'auth-001', 'message' => Helpers::translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
                 return response()->json([
                     'errors' => $errors
                 ], 401);
@@ -129,7 +129,7 @@ class AuthController extends Controller
                     $time = $temp_block_time - Carbon::parse($user->temp_block_time)->diffInSeconds();
 
                     $errors = [];
-                    array_push($errors, ['code' => 'auth-001', 'message' => translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
+                    array_push($errors, ['code' => 'auth-001', 'message' => Helpers::translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
                     return response()->json([
                         'errors' => $errors
                     ], 401);
@@ -142,7 +142,7 @@ class AuthController extends Controller
                     $user->save();
 
                     $errors = [];
-                    array_push($errors, ['code' => 'auth-001', 'message' => translate('credentials_do_not_match_or_account_has_been_suspended')]);
+                    array_push($errors, ['code' => 'auth-001', 'message' => Helpers::translate('credentials_do_not_match_or_account_has_been_suspended')]);
                     return response()->json([
                         'errors' => $errors
                     ], 401);
@@ -155,7 +155,7 @@ class AuthController extends Controller
                     $time = $temp_block_time - Carbon::parse($user->temp_block_time)->diffInSeconds();
 
                     $errors = [];
-                    array_push($errors, ['code' => 'auth-001', 'message' => translate('too_many_attempts. please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
+                    array_push($errors, ['code' => 'auth-001', 'message' => Helpers::translate('too_many_attempts. please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
                     return response()->json([
                         'errors' => $errors
                     ], 401);
@@ -165,7 +165,7 @@ class AuthController extends Controller
                     $user->save();
 
                     $errors = [];
-                    array_push($errors, ['code' => 'auth-001', 'message' => translate('credentials_do_not_match_or_account_has_been_suspended')]);
+                    array_push($errors, ['code' => 'auth-001', 'message' => Helpers::translate('credentials_do_not_match_or_account_has_been_suspended')]);
                     return response()->json([
                         'errors' => $errors
                     ], 401);
@@ -174,7 +174,7 @@ class AuthController extends Controller
             }
         } else {
             $errors = [];
-            array_push($errors, ['code' => 'auth-001', 'message' => translate('Customer_not_found_or_Account_has_been_suspended')]);
+            array_push($errors, ['code' => 'auth-001', 'message' => Helpers::translate('Customer_not_found_or_Account_has_been_suspended')]);
             return response()->json([
                 'errors' => $errors
             ], 401);

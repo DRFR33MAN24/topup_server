@@ -107,10 +107,10 @@ class SocialAuthController extends Controller
             if ($token != null) {
                 return response()->json(['token' => $token]);
             }
-            return response()->json(['error_message' => translate('Customer_not_found_or_Account_has_been_suspended')]);
+            return response()->json(['error_message' => Helpers::translate('Customer_not_found_or_Account_has_been_suspended')]);
         }
 
-        return response()->json(['error' => translate('email_does_not_match')]);
+        return response()->json(['error' => Helpers::translate('email_does_not_match')]);
     }
 
     public static function login_process_passport($user, $email, $password)

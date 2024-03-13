@@ -31,6 +31,6 @@ class PasswordResetMail extends Mailable
     public function build()
     {
         $reset_url = $this->reset_url;
-        return $this->subject(translate('Password_Reset_Mail'))->view('email-templates.admin-password-reset', ['url' => $reset_url]);
+        return $this->subject(Helpers::translate('Password_Reset_Mail'))->view('email-templates.admin-password-reset', ['url' => $reset_url]);
     }
 }

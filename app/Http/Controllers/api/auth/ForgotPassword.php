@@ -38,7 +38,7 @@ class ForgotPassword extends Controller
                 if (isset($password_verification_data) &&  Carbon::parse($password_verification_data->created_at)->diffInSeconds() < $otp_interval_time) {
                     $time = $otp_interval_time - Carbon::parse($password_verification_data->created_at)->diffInSeconds();
 
-                    return response()->json(['message' => translate('please_try_again_after_') .  CarbonInterval::seconds($time)->cascade()->forHumans()], 200);
+                    return response()->json(['message' => Helpers::translate('please_try_again_after_') .  CarbonInterval::seconds($time)->cascade()->forHumans()], 200);
                 } else {
                     $token = Str::random(120);
                     $reset_data = PasswordReset::where(['identity' => $customer['email']])->latest()->first();
@@ -65,9 +65,9 @@ class ForgotPassword extends Controller
                     }
                     if ($emailServices_smtp['status'] == 1) {
                         Mail::to($customer['email'])->send(new \App\Mail\PasswordResetMail($reset_url));
-                        $response = translate('check_your_email');
+                        $response = Helpers::translate('check_your_email');
                     } else {
-                        $response = translate('email_failed');
+                        $response = Helpers::translate('email_failed');
                     }
                     return response()->json(['message' => $response], 200);
                 }
@@ -101,7 +101,7 @@ class ForgotPassword extends Controller
                 $time = $temp_block_time - Carbon::parse($password_reset_token->temp_block_time)->diffInSeconds();
 
                 return response()->json([
-                    'code' => 'not-found', 'message' => translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()
+                    'code' => 'not-found', 'message' => Helpers::translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()
                 ], 403);
             }
 
@@ -116,7 +116,7 @@ class ForgotPassword extends Controller
                 if (isset($password_reset->temp_block_time) && Carbon::parse($password_reset->temp_block_time)->diffInSeconds() <= $temp_block_time) {
                     $time = $temp_block_time - Carbon::parse($password_reset->temp_block_time)->diffInSeconds();
 
-                    $message = translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans();
+                    $message = Helpers::translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans();
                 } elseif ($password_reset->is_temp_blocked == 1 && Carbon::parse($password_reset->created_at)->diffInSeconds() >= $temp_block_time) {
                     $password_reset->otp_hit_count = 1;
                     $password_reset->is_temp_blocked = 0;
@@ -124,7 +124,7 @@ class ForgotPassword extends Controller
                     $password_reset->updated_at = now();
                     $password_reset->save();
 
-                    $message = translate('invalid_otp');
+                    $message = Helpers::translate('invalid_otp');
                 } elseif ($password_reset->otp_hit_count >= $max_otp_hit && $password_reset->is_temp_blocked == 0) {
                     $password_reset->is_temp_blocked = 1;
                     $password_reset->temp_block_time = now();
@@ -133,17 +133,17 @@ class ForgotPassword extends Controller
 
                     $time = $temp_block_time - Carbon::parse($password_reset->temp_block_time)->diffInSeconds();
 
-                    $message = translate('too_many_attempts. please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans();
+                    $message = Helpers::translate('too_many_attempts. please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans();
                 } else {
                     $password_reset->otp_hit_count += 1;
                     $password_reset->save();
 
-                    $message = translate('invalid_OTP');
+                    $message = Helpers::translate('invalid_OTP');
                 }
 
                 return response()->json(['code' => 'not-found', 'message' => $message], 403);
             } else {
-                return response()->json(['code' => 'not-found', 'message' => translate('invalid_OTP')], 403);
+                return response()->json(['code' => 'not-found', 'message' => Helpers::translate('invalid_OTP')], 403);
             }
         }
     }

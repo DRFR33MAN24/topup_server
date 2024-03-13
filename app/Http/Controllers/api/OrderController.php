@@ -51,6 +51,6 @@ class OrderController extends Controller
         //OrderPlaced::dispatch($order);
         ProcessOrder::dispatch($order_ref);
 
-        return response()->json(['message' => Helpers::translate('successfully created!')], 200);
+        return response()->json(['message' => Helpers::Helpers::translate('successfully created!')], 200);
     }
 }
