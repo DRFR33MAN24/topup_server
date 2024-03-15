@@ -40,6 +40,11 @@ Route::group(['namespace' => 'api', 'middleware' => ['api_lang']], function () {
         Route::get('tags','StyleController@get_styles_tags');
     });
 
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('categories', 'CategoryController@get_categories');
+        Route::get('tags','CategoryController@get_categories_tags');
+    });
+
     Route::group(['prefix' => 'payment','middleware' => 'auth:api'], function () {
         
         Route::get('packages','PaymentController@get_packages');

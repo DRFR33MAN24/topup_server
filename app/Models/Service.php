@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Service extends Model
 {
     use HasFactory;
 
 
-    public function user()
+    public function category()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
