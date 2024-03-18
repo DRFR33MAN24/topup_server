@@ -156,6 +156,7 @@ class PhoneVerificationController extends Controller
                     'is_active' => 1,
 
                 ]);
+                $verify->delete();
                 $token = $user->createToken('LaravelAuthApp')->plainTextToken;
                 return response()->json([
                     'message' => Helpers::translate('OTP_verified'),

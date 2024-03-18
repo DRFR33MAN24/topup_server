@@ -18,6 +18,36 @@ use Illuminate\Support\Facades\Log;
 class OrderController extends Controller
 {
 
+    public function get_orders(Request $request)
+    {
+        //LOG::info($request);
+        $limit = $request["limit"];
+        $date = $request['date'];
+
+        $offset = $request["offset"];
+        $paginator = Order::query();
+
+
+
+
+        if ($date) {
+           $paginator= $paginator->where('category_title','LIKE',"%{$date}%");
+        }
+
+        $paginator =$paginator->latest()->paginate($limit, ['*'], 'page', $offset);
+
+        /*$paginator->count();*/
+        $orders = [
+            'total_size' => $paginator->total(),
+            'limit' => (int)$limit,
+            'offset' => (int)$offset,
+            'orders' => $paginator->items()
+        ];
+    Log::info(json_encode($paginator->items()));
+
+        return response()->json($orders, 200);
+    }
+
     public function place_order(Request $request)
     {
 
@@ -51,6 +81,6 @@ class OrderController extends Controller
         //OrderPlaced::dispatch($order);
         ProcessOrder::dispatch($order_ref);
 
-        return response()->json(['message' => Helpers::Helpers::translate('successfully created!')], 200);
+        return response()->json(['message' => Helpers::translate('successfully created!')], 200);
     }
 }

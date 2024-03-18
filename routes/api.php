@@ -50,8 +50,19 @@ Route::group(['namespace' => 'api', 'middleware' => ['api_lang']], function () {
         Route::get('packages','PaymentController@get_packages');
     });
 
-    Route::group(['prefix' => 'orders',], function () {
+    Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
+        Route::get('info', 'CustomerController@info');
+        Route::put('update-profile', 'CustomerController@update_profile');
+    });
+
+    Route::group(['prefix' => 'orders','middleware' => 'auth:api'], function () {
         Route::post('place-order', 'OrderController@place_order');
+        Route::get('orders', 'OrderController@get_orders');
+    });
+
+    Route::group(['prefix' => 'transactions','middleware' => 'auth:api'], function () {
+
+        Route::get('transactions', 'TransactionController@get_transactions');
     });
 
     Route::group(['prefix' => 'config'], function () {

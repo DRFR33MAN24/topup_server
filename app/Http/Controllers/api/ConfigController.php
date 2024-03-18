@@ -63,7 +63,7 @@ class ConfigController extends Controller
             'refund_policy' => Helpers::get_business_settings('refund-policy'),
             'return_policy' => Helpers::get_business_settings('return-policy'),
             'cancellation_policy' => Helpers::get_business_settings('cancellation-policy'),
-           
+            'currency_conversion_factor' => Helpers::get_business_settings('currency_conversion_factor'),
             'maintenance_mode' => (boolean)Helpers::get_business_settings('maintenance_mode') ?? 0,
             'language' => $lang_array,
           

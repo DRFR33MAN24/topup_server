@@ -14,16 +14,24 @@ class CategoryController extends Controller
 
     public function get_categories(Request $request)
     {
+        //LOG::info($request);
         $limit = $request["limit"];
         $tag = $request['tag'];
+        $search = $request['search'];
         $offset = $request["offset"];
+        $paginator = Category::with([ 'tags','services']);
+
         if ($tag) {
-            $paginator = Category::with([ 'tags','services'])->whereRelation('tags','tag','=',$tag)->latest()->paginate($limit, ['*'], 'page', $offset);
+            $paginator = $paginator->whereRelation('tags','tag','=',$tag);
             
-        } else {
-            $paginator = Category::with([ 'tags','services'])->latest()->paginate($limit, ['*'], 'page', $offset);
         }
-        
+
+
+        if ($search) {
+           $paginator= $paginator->where('category_title','LIKE',"%{$search}%");
+        }
+
+        $paginator =$paginator->latest()->paginate($limit, ['*'], 'page', $offset);
 
         /*$paginator->count();*/
         $categories = [
@@ -32,7 +40,7 @@ class CategoryController extends Controller
             'offset' => (int)$offset,
             'categories' => $paginator->items()
         ];
-      // Log::info(json_encode($categories));
+       //Log::info(json_encode($paginator->items()));
 
         return response()->json($categories, 200);
     }
