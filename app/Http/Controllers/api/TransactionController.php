@@ -10,7 +10,7 @@ use App\Models\Transaction;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use Carbon\Carbon;
 
 
 
@@ -24,14 +24,15 @@ class TransactionController extends Controller
         $date = $request['date'];
 
         $offset = $request["offset"];
-        $paginator = Transaction::all();
+        $paginator = Transaction::query();
 
 
 
 
         if ($date) {
-           $paginator= $paginator->where('category_title','LIKE',"%{$date}%");
-        }
+            $paginator= $paginator->whereDate('created_at', '=', Carbon::parse($date)->toDateString()
+         );
+         }
 
         $paginator =$paginator->latest()->paginate($limit, ['*'], 'page', $offset);
 

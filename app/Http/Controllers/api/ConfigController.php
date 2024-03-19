@@ -58,6 +58,8 @@ class ConfigController extends Controller
         return response()->json([
             'about_us' => Helpers::get_business_settings('about_us'),
             'privacy_policy' => Helpers::get_business_settings('privacy_policy'),
+            'company_email' => Helpers::get_business_settings('company_email'),
+            'company_phone' => (string)Helpers::get_business_settings('company_phone'),
 
             'terms_&_conditions' => Helpers::get_business_settings('terms_condition'),
             'refund_policy' => Helpers::get_business_settings('refund-policy'),
