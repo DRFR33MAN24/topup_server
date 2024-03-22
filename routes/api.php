@@ -53,6 +53,7 @@ Route::group(['namespace' => 'api', 'middleware' => ['api_lang']], function () {
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
         Route::get('info', 'CustomerController@info');
         Route::put('update-profile', 'CustomerController@update_profile');
+        Route::get('account-delete', 'CustomerController@account_delete');
     });
 
     Route::group(['prefix' => 'orders','middleware' => 'auth:api'], function () {

@@ -28,6 +28,8 @@ class OrderController extends Controller
         $offset = $request["offset"];
         $paginator = Order::query();
 
+        $paginator->with(['service']);
+
 
 
 
@@ -54,34 +56,32 @@ class OrderController extends Controller
     {
 
     
-        $validator = Validator::make($request->all(), [
-            'style_id' => 'required',
+        // $validator = Validator::make($request->all(), [
+        //     'style_id' => 'required',
 
-        ]);
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        // }
 
-        if ($request->has('image')) {
 
-            $imageName = ImageManager::upload('orders/', 'png', $request->file('image'));
-        }
 
 
 
         $order = [
             'user_id' => 1,
-            'style_id' => $request["style_id"],
-            'uploaded_img' => $imageName,
+            'category_id'=>1,
+            'service_id'=>1,
+            'status'=>'pending',
+            'price'=>1.5,
 
             'updated_at' => now(),
         ];
 
         $order_ref=Order::create($order);
 
-        //OrderPlaced::dispatch($order);
-        ProcessOrder::dispatch($order_ref);
+
 
         return response()->json(['message' => Helpers::translate('successfully created!')], 200);
     }
