@@ -10,6 +10,11 @@ class Service extends Model
     use HasFactory;
 
 
+    public function provider()
+    {
+        return $this->belongsTo(ApiProvider::class, 'api_provider_id', 'id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

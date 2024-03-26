@@ -35,10 +35,7 @@ Route::group(['namespace' => 'api', 'middleware' => ['api_lang']], function () {
         Route::any('social-login', 'SocialAuthController@social_login');
     });
 
-    Route::group(['prefix' => 'styles'], function () {
-        Route::get('styles', 'StyleController@get_styles');
-        Route::get('tags','StyleController@get_styles_tags');
-    });
+
 
     Route::group(['prefix' => 'categories'], function () {
         Route::get('categories', 'CategoryController@get_categories');
@@ -64,6 +61,10 @@ Route::group(['namespace' => 'api', 'middleware' => ['api_lang']], function () {
     Route::group(['prefix' => 'transactions','middleware' => 'auth:api'], function () {
 
         Route::get('transactions', 'TransactionController@get_transactions');
+    });
+    Route::group(['prefix' => 'notifications','middleware' => 'auth:api'], function () {
+
+        Route::get('/', 'NotificationController@get_notifications');
     });
 
     Route::group(['prefix' => 'config'], function () {
