@@ -50,6 +50,24 @@
                 </li>
                 <li class="list-divider"></li>
 
+                {{--Manage Cards--}}
+                <li class="nav-small-cap"><span class="hide-menu">@lang('Manage Cards')</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{route('admin.card.add')}}" aria-expanded="false">
+                        <i data-feather="plus-circle" class="feather-icon text-warning"></i>
+                        <span class="hide-menu">@lang('Add Cards')</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="{{route('admin.card.show')}}"
+                       aria-expanded="false">
+                        <i data-feather="list" class="feather-icon text-danger"></i>
+                        <span class="hide-menu">@lang('Show Cards')</span>
+                    </a>
+                </li>
+                <li class="list-divider"></li>
+
 
                 {{--Manage API Providers--}}
                 <li class="nav-small-cap"><span class="hide-menu">@lang('Api Providers')</span></li>

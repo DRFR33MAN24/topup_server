@@ -165,6 +165,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/category-multiple-active', 'CategoryController@activeMultiple')->name('category-multiple-active');
         Route::get('/category-multiple-deactive', 'CategoryController@deactiveMultiple')->name('category-multiple-deactive');
 
+        Route::get('/card/add', 'TelecomCardCreditController@create')->name('card.add');
+        Route::post('/card', 'TelecomCardCreditController@store')->name('card.store');
+        Route::get('/card-active', 'TelecomCardCreditController@categoryActive')->name('card-active');
+        Route::get('/card-deactive', 'TelecomCardCreditController@categoryDeactive')->name('card-deactive');
+        Route::get('/card/{id}', 'TelecomCardCreditController@edit')->name('card.edit');
+        Route::post('/card/update', 'TelecomCardCreditController@update')->name('card.update');
+        Route::get('/cards', 'TelecomCardCreditController@index')->name('card.show');
+        Route::post('/card/status/{id?}', 'TelecomCardCreditController@statusChange')->name('card.status.change');
+        Route::get('/get-card', 'TelecomCardCreditController@show')->name('get.card');
+        Route::get('/search-card', 'TelecomCardCreditController@search')->name('card-search');
+        Route::get('/card-multiple-active', 'TelecomCardCreditController@activeMultiple')->name('card-multiple-active');
+        Route::get('/card-multiple-deactive', 'TelecomCardCreditController@deactiveMultiple')->name('card-multiple-deactive');
+
         Route::resource('api-provider', 'ApiProviderController', ['as' => 'provider']);
         // search
         Route::get('/search-provider', 'ApiProviderController@search')->name('provider-search');
